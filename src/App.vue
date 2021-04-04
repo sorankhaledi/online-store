@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <app-main class="main"></app-main>
+    <app-header :scrolled="scrolled"></app-header>
+    <app-main></app-main>
   </div>
 </template>
 
@@ -10,13 +10,18 @@ import HeaderVue from "./components/Header.vue";
 import mainVue from "./components/main.vue";
 
 export default {
+  data() {
+    return {
+      scrolled: false
+    }
+  },
   components: {
     appHeader: HeaderVue,
     appMain: mainVue,
   },
   methods: {
     scroll() {
-      const header = document.querySelector("header");
+      const header = document.querySelector("header").firstElementChild;
       const section1 = document.getElementsByClassName("section1")[0];
 
       const observer = new IntersectionObserver((entries) => {
@@ -37,8 +42,10 @@ export default {
         entries.forEach(entery => {
           if(!entery.isIntersecting) {
             header.classList.add('scrolled');
+            this.scrolled = true;
           } else{
             header.classList.remove('scrolled');
+            this.scrolled = false;
           }
         })
       }, {
@@ -69,7 +76,5 @@ export default {
   text-align: center;
   color: #2c3e50;
 
-  .main {
-  }
 }
 </style>

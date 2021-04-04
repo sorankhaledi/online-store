@@ -1,127 +1,188 @@
 <template>
   <header>
-    <div class="logo">
-      <p>MyShop</p>
-    </div>
-    <nav class="nav">
-      <ul class="navbar">
-        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">More</a></li>
-      </ul>
+    <b-navbar
+      :class="headerClass"
+      toggleable="lg"
+      fixed="top"
+      variant="background"
+    >
+      <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
-    </nav>
+      <b-navbar-toggle target="nav-collapse" @click="change">
+        <template>
+          <b-icon icon="list"></b-icon>
+        </template>
+      </b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item href="#">Home</b-nav-item>
+          <b-nav-item href="#">Pricing</b-nav-item>
+          <b-nav-item href="#">About Us</b-nav-item>
+          <b-nav-item href="#">More</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </header>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      toggled: false,
+      headerClass: "",
+    };
+  },
+  props: ["scrolled"],
+  methods: {
+    change() {
+      this.toggled = !this.toggled;
+      this.setClass();
+    },
+    setClass() {
+      if (this.toggled && !this.scrolled) {
+        this.headerClass = "scrolled";
+      } else {
+        this.headerClass = "";
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-header {
+* {
   --color: #f3f3f3;
   --color-inverse: #333;
   --background: transparent;
-  --size: 1rem;
-  width: 100%;
-  margin: 0;
-  padding: 30px 0;
-  position: fixed;
-  background-color: var(--background);
-  color: var(--color);
+}
+
+header {
   font-family: "Courier New", Courier, monospace;
-  font-size: 18px;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  transition: all 0.8s cubic-bezier(0, 0.5, 0, 1);
 
-    .logo {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-
-        p {
-            margin: 0 20px;
-            text-align: center;
-            font-weight: 200;
-            font-size: 22px;
-        }
-    }
   nav {
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    justify-content: flex-end;
+    padding: 20px 0;
+    transition: all 0.8s cubic-bezier(0, 0.5, 0, 1);
 
-    .navbar {
-      margin: 0 auto;
-      list-style: none;
-            padding: 15px 0;
+    .navbar-brand {
+      color: var(--color);
+      font-weight: 900;
+      font-size: 1rem;
+      margin-left: 15px;
 
-      .nav-item {
-        .nav-link {
-          color: var(--color);
-                    margin-left: 10px;
-                    padding: 5px 10px;
-                    transition: all 0.25s ease-in-out;
+      &:hover {
+        color: var(--color);
+        cursor: text;
+      }
+    }
+
+    .navbar-toggler {
+      border-color: var(--color);
+      margin-right: 15px;
+
+      &:hover {
+        background-color: rgb(63, 56, 56);
+      }
+
+      svg {
+        fill: var(--color);
+      }
+    }
+
+    .nav-item {
+      margin: 5px 15px;
+
+      .nav-link {
+        color: var(--color);
+        transition: all 250ms ease;
+
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: lightgray;
+          border-radius: 5px;
+          color: var(--color-inverse);
+          box-shadow: 0px 1px 5px rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  .scrolled {
+    background-color: var(--color-inverse);
+    padding: 10px 0;
+
+    .navbar-toggler {
+      margin-right: 15px;
+      
+      &:hover {
+        background-color: rgb(68, 64, 64);
+      }
+
+      svg {
+        color: var(--color);
+      }
+    }
+
+    .nav-item {
+      margin: 5px 15px;
+
+      .nav-link {
+        color: var(--color);
+        transition: all 250ms ease;
+
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: lightgray;
+          border-radius: 5px;
+          color: var(--color-inverse);
+          box-shadow: 0px 1px 5px rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  .dark {
+    background-color: var(--color);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+
+    .navbar-toggler {
+      margin-right: 15px;
+      border-color: var(--color-inverse);
+
+      &:hover {
+        background-color: rgb(214, 214, 214);
+      }
+
+      svg {
+        fill: var(--color-inverse);
+      }
+    }
+
+    .navbar-brand {
+      color: var(--color-inverse);
+    }
+
+    .nav-item {
+      margin: 5px 15px;
+
+      .nav-link {
+        color: var(--color-inverse);
+        transition: all 250ms ease;
+
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: darkgray;
+          border-radius: 5px;
+          color: white;
+          box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
         }
       }
     }
   }
 }
-
-.scrolled {
-    background-color: #333;
-    color: #f4f4f4;
-    padding: 0;
-    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-
-    nav {
-        .navbar {
-            padding: 15px 0;
-            .nav-item {
-                .nav-link {
-                    margin-left: 10px;
-                    padding: 5px 10px;
-                    color: #f4f4f4;
-
-                    &:hover {
-                        background-color: lightgray;
-                        color: #333;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.dark {
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 0;
-    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-
-    nav {
-        .navbar {
-            padding: 15px 0;
-            .nav-item {
-                .nav-link {
-                    margin-left: 10px;
-                    padding: 5px 10px;
-                    color: #333;
-                    transition: all 0.25s ease-in-out;
-
-                    &:hover {
-                        background-color: lightgray;
-                    }
-                }
-            }
-        }
-    }
-}
-
-
 </style>
