@@ -1,63 +1,20 @@
 <template>
   <div id="app">
-    <app-header :scrolled="scrolled"></app-header>
-    <app-main></app-main>
+    <app-header></app-header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import HeaderVue from "./components/Header.vue";
-import mainVue from "./components/main.vue";
 
 export default {
   data() {
     return {
-      scrolled: false
-    }
+    };
   },
   components: {
     appHeader: HeaderVue,
-    appMain: mainVue,
-  },
-  methods: {
-    scroll() {
-      const header = document.querySelector("header").firstElementChild;
-      const section1 = document.getElementsByClassName("section1")[0];
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entery => {
-          if(!entery.isIntersecting) {
-            header.classList.add('dark');
-          } else {
-            header.classList.remove('dark');
-          }
-        })
-      }, {
-        rootMargin: "-120px 0px 0px 0px"
-      });
-      observer.observe(section1);
-
-
-      const observer2 = new IntersectionObserver((entries) => {
-        entries.forEach(entery => {
-          if(!entery.isIntersecting) {
-            header.classList.add('scrolled');
-            this.scrolled = true;
-          } else{
-            header.classList.remove('scrolled');
-            this.scrolled = false;
-          }
-        })
-      }, {
-        threshold: 1
-      });
-
-      observer2.observe(section1);
-
-    },
-  },
-  mounted() {
-    this.scroll();
   },
 };
 </script>
@@ -75,6 +32,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
 }
 </style>
