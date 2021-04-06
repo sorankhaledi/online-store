@@ -2,7 +2,7 @@
   <header>
     <b-navbar
       :class="headerClass"
-      toggleable="lg"
+      toggleable="md"
       fixed="top"
       variant="background"
     >
@@ -94,13 +94,16 @@ header {
     .navbar-toggler {
       border-color: var(--color);
       margin-right: 15px;
-      border-radius: 50%;
       height: 40px;
       width: 40px;
       padding: 0;
+      transition: all 0.8s cubic-bezier(0, 0.5, 0, 1);
 
-      &:hover {
+      &:hover,
+      &:focus,
+      &:active {
         background-color: rgb(63, 56, 56);
+        border-radius: 5rem;
       }
 
       svg {
@@ -172,9 +175,13 @@ header {
     .navbar-toggler {
       margin-right: 15px;
       border-color: var(--color-inverse);
+      transition: all 0.8s cubic-bezier(0, 0.5, 0, 1);
 
-      &:hover {
+      &:hover,
+      &:focus,
+      &:active {
         background-color: rgb(214, 214, 214);
+        border-radius: 5rem;
       }
 
       svg {
